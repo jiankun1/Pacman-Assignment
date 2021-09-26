@@ -25,7 +25,7 @@ public class MoveManager : MonoBehaviour
             //StartCoroutine(MoveLeft());
             if (pacman.transform.rotation.z != 0)
             {
-                pacAnimationController.SetTrigger("Flip");
+                pacAnimationController.SetTrigger("FlipBack");
             }
             tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-12.5f, 9.5f, 0.0f), 3.0f);
             
@@ -33,7 +33,7 @@ public class MoveManager : MonoBehaviour
         else if (pacman.transform.position.x == -12.5 && pacman.transform.position.y == 9.5)
         {
             //StartCoroutine(MoveUp());
-            pacAnimationController.SetTrigger("RightTurn");
+            pacAnimationController.SetTrigger("Y0RightTurn");
             tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-12.5f, 13.5f, 0.0f), 3.0f);
         }
         else if (pacman.transform.position.x == -12.5 && pacman.transform.position.y == 13.5)
@@ -45,7 +45,7 @@ public class MoveManager : MonoBehaviour
         else if (pacman.transform.position.x == -7.5 && pacman.transform.position.y == 13.5)
         {
             //StartCoroutine(MoveDown());
-            pacAnimationController.SetTrigger("RightTurn");
+            pacAnimationController.SetTrigger("Y180RightTurn");
             tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-7.5f, 9.5f, 0.0f), 3.0f);
         }
 
@@ -54,14 +54,21 @@ public class MoveManager : MonoBehaviour
 
     }
 
-    //pacman move left
-    IEnumerator MoveLeft()
+    IEnumerator PlayAudio()
     {
-        /*if (pacman.transform.rotation.z != 90)
-        {
-            pacAnimationController.SetTrigger("DowntoLeft");
-        }*/
+        yield return new WaitUntil(() => theSound.isPlaying == false);
+        theSound.Play();
 
+    }
+    //pacman move left
+    /*IEnumerator MoveLeft()
+    {
+        
+        if (pacman.transform.rotation.z != 0)
+        {
+            pacAnimationController.SetTrigger("Flip");
+            yield return new WaitForSeconds(0.2f);
+        }
         
         tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-12.5f, 9.5f, 0.0f), 3.0f);
         yield return null;
@@ -69,30 +76,28 @@ public class MoveManager : MonoBehaviour
 
     IEnumerator MoveUp()
     {
-        pacAnimationController.SetTrigger("LefttoUp");
+        pacAnimationController.SetTrigger("Y0RightTurn");
+        yield return new WaitForSeconds(0.2f);
         tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-12.5f, 13.5f, 0.0f), 3.0f);
         yield return null;
     }
 
     IEnumerator MoveRight()
     {
-        pacAnimationController.SetTrigger("UptoRight");
+        pacAnimationController.SetTrigger("Flip");
+        yield return new WaitForSeconds(0.2f);
         tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-7.5f, 13.5f, 0.0f), 3.0f);
         yield return null;
     }
 
     IEnumerator MoveDown()
     {
-        pacAnimationController.SetTrigger("RighttoDown");
-        yield return new WaitForSeconds(1.0f);
+        pacAnimationController.SetTrigger("Y180RightTurn");
+        yield return new WaitForSeconds(0.2f);
+        
         tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-7.5f, 9.5f, 0.0f), 3.0f);
         yield return null;
-    }
-    
-    IEnumerator PlayAudio()
-    {
-        yield return new WaitUntil(() => theSound.isPlaying == false);
-        theSound.Play();
-        
-    }
+    }*/
+
+
 }
