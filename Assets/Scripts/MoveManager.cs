@@ -8,13 +8,17 @@ public class MoveManager : MonoBehaviour
     private GameObject pacman;
 
     private Tweener tweener;
-    public AudioSource theSound;
+    public AudioSource pacmanSound;
+    public AudioSource startSound;
+    public AudioSource backgroundSound;
     public Animator pacAnimationController;
 
     // Start is called before the first frame update
     void Start()
     {
         tweener = GetComponent<Tweener>();
+        //play once for intro
+        startSound.Play();
     }
 
     // Update is called once per frame
@@ -52,15 +56,24 @@ public class MoveManager : MonoBehaviour
         }
 
         //play the sound
+        StartCoroutine(BackgroundMusic());
         StartCoroutine(PlayAudio());
 
     }
 
     IEnumerator PlayAudio()
     {
-        yield return new WaitUntil(() => theSound.isPlaying == false);
-        theSound.Play();
+        yield return new WaitUntil(() => startSound.isPlaying == false);
+        yield return new WaitUntil(() => pacmanSound.isPlaying == false);
+        pacmanSound.Play();
 
+    }
+
+    IEnumerator BackgroundMusic()
+    {
+        yield return new WaitUntil(() => startSound.isPlaying == false);
+        yield return new WaitUntil(() => backgroundSound.isPlaying == false);
+        backgroundSound.Play();
     }
     //pacman move left
     /*IEnumerator MoveLeft()
