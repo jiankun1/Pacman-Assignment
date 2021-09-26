@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 263564025}
   - component: {fileID: 263564024}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: ManualGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,6 +296,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &348748189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 348748191}
+  - component: {fileID: 348748190}
+  m_Layer: 0
+  m_Name: LevelGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &348748190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348748189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0938030caee7a144e8b11e89ed1f0d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: da095d50508e75649aa864a20687ff51, type: 2}
+  - {fileID: 11400000, guid: 98fea17d0421ef546b7df49163226dbf, type: 2}
+  - {fileID: 11400000, guid: fe5a1bf5f1d458346ab0981b1d1cf5dd, type: 2}
+  - {fileID: 11400000, guid: 2c1d3dd713c3cd643b25e804b92702b1, type: 2}
+  - {fileID: 11400000, guid: 2a8c52d7a1b9bc449ab7a5c3a3ab51d9, type: 2}
+  - {fileID: 11400000, guid: 70e0646551d400341b0174fbe6bd2f9a, type: 2}
+  anTile: {fileID: 11400000, guid: 39ca1d024a5b85c469a2eca554d1bf98, type: 2}
+  set1: {fileID: 0}
+  set2: {fileID: 0}
+  set3: {fileID: 0}
+  set4: {fileID: 0}
+  set5: {fileID: 0}
+  set6: {fileID: 0}
+  set7: {fileID: 0}
+--- !u!4 &348748191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348748189}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.011796914, y: 3.4913983, z: -9.576217}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &412726244
 GameObject:

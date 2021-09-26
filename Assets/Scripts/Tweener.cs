@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tweener : MonoBehaviour
 {
     private Tween activeTween;
-    //public AudioSource theSound;
+    
 
     public void AddTween(Transform targetObject, Vector3 startPos, Vector3 endPos, float duration)
     {
@@ -28,6 +28,7 @@ public class Tweener : MonoBehaviour
 
         if (activeTween != null)
         {
+            //distance to end position
             float dist = Vector3.Distance(activeTween.Target.position, activeTween.EndPos);
             // the fraction t, using the duration divided by elapsed time
             float t = (Time.time - activeTween.StartTime) / activeTween.Duration;
@@ -36,7 +37,7 @@ public class Tweener : MonoBehaviour
             {
                 
                 activeTween.Target.position = Vector3.Lerp(activeTween.StartPos, activeTween.EndPos, t);
-                //StartCoroutine(PlayAudio());
+                
             }
             else if (dist <= 0.1f)
             {
@@ -47,10 +48,5 @@ public class Tweener : MonoBehaviour
         }
     }
 
-    /*IEnumerator PlayAudio()
-    {
-        yield return new WaitForSeconds(2.0f);
-        theSound.Play();
-        
-    }*/
+ 
 }

@@ -20,6 +20,8 @@ public class MoveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        //if pacman move to the corner, then turn around the pacman to make sure it moving clockwise
         if(pacman.transform.position.x == -7.5 && pacman.transform.position.y == 9.5)
         {
             //StartCoroutine(MoveLeft());
@@ -49,7 +51,7 @@ public class MoveManager : MonoBehaviour
             tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-7.5f, 9.5f, 0.0f), 3.0f);
         }
 
-
+        //play the sound
         StartCoroutine(PlayAudio());
 
     }
