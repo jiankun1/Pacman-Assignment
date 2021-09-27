@@ -334,13 +334,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2a8c52d7a1b9bc449ab7a5c3a3ab51d9, type: 2}
   - {fileID: 11400000, guid: 70e0646551d400341b0174fbe6bd2f9a, type: 2}
   anTile: {fileID: 11400000, guid: 39ca1d024a5b85c469a2eca554d1bf98, type: 2}
-  set1: {fileID: 0}
-  set2: {fileID: 0}
-  set3: {fileID: 0}
-  set4: {fileID: 0}
-  set5: {fileID: 0}
-  set6: {fileID: 0}
-  set7: {fileID: 0}
 --- !u!4 &348748191
 Transform:
   m_ObjectHideFlags: 0
@@ -2100,7 +2093,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 0}
       - {fileID: 1027932215260175810, guid: f5fe3d06a402c79449c8d6d0212f2222, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -8180,7 +8173,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 0}
       - {fileID: 1027932215260175810, guid: f5fe3d06a402c79449c8d6d0212f2222, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:

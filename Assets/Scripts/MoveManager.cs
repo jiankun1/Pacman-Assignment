@@ -29,10 +29,11 @@ public class MoveManager : MonoBehaviour
         if(pacman.transform.position.x == -7.5 && pacman.transform.position.y == 9.5)
         {
             //StartCoroutine(MoveLeft());
-            if (pacman.transform.rotation.z != 0)
+            /*if (pacman.transform.rotation.z != 0)
             {
                 pacAnimationController.SetTrigger("FlipBack");
-            }
+            }*/
+            pacman.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
             tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-12.5f, 9.5f, 0.0f), 3.0f);
             
         }
@@ -45,13 +46,15 @@ public class MoveManager : MonoBehaviour
         else if (pacman.transform.position.x == -12.5 && pacman.transform.position.y == 13.5)
         {
             //StartCoroutine(MoveRight());
-            pacAnimationController.SetTrigger("Flip");
+            //pacAnimationController.SetTrigger("Flip");
+            pacman.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
             tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-7.5f, 13.5f, 0.0f), 3.0f);
         }
         else if (pacman.transform.position.x == -7.5 && pacman.transform.position.y == 13.5)
         {
             //StartCoroutine(MoveDown());
             pacAnimationController.SetTrigger("Y180RightTurn");
+            //pacman.transform.rotation = new Quaternion(0.0f, 0.0f, 90.0f, 0.0f);
             tweener.AddTween(pacman.transform, pacman.transform.position, new Vector3(-7.5f, 9.5f, 0.0f), 3.0f);
         }
 
