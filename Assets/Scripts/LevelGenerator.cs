@@ -34,7 +34,7 @@ public class LevelGenerator : MonoBehaviour
     //GameObject autoGrid = new GameObject("autoGrid");
     private Vector3Int startPos = new Vector3Int(-14, 14, 0);
     //the variables are used for saving 7 types of tile base and then used for rotating the tiles
-    public TileBase set1, set2, set3, set4, set5, set6, set7;
+    private TileBase set1, set2, set3, set4, set5, set6, set7;
     
     // Start is called before the first frame update
     void Start()
@@ -163,6 +163,16 @@ public class LevelGenerator : MonoBehaviour
                         else if (topLeftTileMap.GetTile(startPos + currentPos + right) == set4 & topLeftTileMap.GetTile(startPos + currentPos + down) == set4 & (checkFor3.Contains(topLeftTileMap.GetTile(startPos + currentPos + new Vector3Int(1, -1, 0))) == false))
                         {
                             //do nothing
+                        }
+                        //left and down has wall segment 4 and bottom-left has a pellet or empty space
+                        else if (topLeftTileMap.GetTile(startPos + currentPos + left) == set4 & topLeftTileMap.GetTile(startPos + currentPos + down) == set4 & (checkFor3.Contains(topLeftTileMap.GetTile(startPos + currentPos + new Vector3Int(-1, -1, 0))) == false))
+                        {
+                            topLeftTileMap.SetTransformMatrix(startPos + currentPos, clockWise90);
+                        }
+                        //left and up has wall segment 4 and top-left has a pellet or empty space
+                        else if (topLeftTileMap.GetTile(startPos + currentPos + left) == set4 & topLeftTileMap.GetTile(startPos + currentPos + up) == set4 & (checkFor3.Contains(topLeftTileMap.GetTile(startPos + currentPos + new Vector3Int(-1, 1, 0))) == false))
+                        {
+                            topLeftTileMap.SetTransformMatrix(startPos + currentPos, antiClock180);
                         }
                         //if left and down has wall segment 3 or 4
                         else if (checkFor3.Contains(topLeftTileMap.GetTile(startPos + currentPos + left)) & checkFor3.Contains(topLeftTileMap.GetTile(startPos + currentPos + down))) 
