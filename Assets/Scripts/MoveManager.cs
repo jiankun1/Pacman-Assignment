@@ -29,7 +29,7 @@ public class MoveManager : MonoBehaviour
 
         //play the sound
         StartCoroutine(BackgroundMusic());
-        StartCoroutine(PlayAudio());
+        //StartCoroutine(PlayAudio());
 
     }
 
