@@ -238,6 +238,17 @@ public class LevelGenerator : MonoBehaviour
         botRight.transform.rotation = new Quaternion(0.0f, 0.0f, 180.0f, 0.0f);
         botRight.transform.position = new Vector3(0.0f, 1.0f, 0.0f);
 
+        //get rid of the excess tiles
+        botLeft.GetComponent<Tilemap>().SetTile(new Vector3Int(-8, 0, 0), null);
+        botLeft.GetComponent<Tilemap>().SetTile(new Vector3Int(-4, 0, 0), null);
+        botRight.GetComponent<Tilemap>().SetTile(new Vector3Int(-8, 0, 0), null);
+        botRight.GetComponent<Tilemap>().SetTile(new Vector3Int(-4, 0, 0), null);
+
+        //add collider
+        topLeft.AddComponent<TilemapCollider2D>();
+        topRight.AddComponent<TilemapCollider2D>();
+        botLeft.AddComponent<TilemapCollider2D>();
+        botRight.AddComponent<TilemapCollider2D>();
     }
 
     // Update is called once per frame

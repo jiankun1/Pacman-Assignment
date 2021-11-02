@@ -247,7 +247,14 @@ public class PacStudentController : MonoBehaviour
             }
         }
         return true;
-        
-        
+    }
+
+    void DetectCollision()
+    {
+        RaycastHit2D hit2d = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 0.6f);
+        if(hit2d)
+        {
+            Debug.Log("2d cast: " + hit2d.collider.name);
+        }
     }
 }
