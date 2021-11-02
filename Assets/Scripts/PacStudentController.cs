@@ -102,6 +102,7 @@ public class PacStudentController : MonoBehaviour
                     currentInput = Vector3.up;
                     activeTween = new Tween(pacStudent.transform, pacStudent.transform.position,
                         pacStudent.transform.position + currentInput, Time.time, duration);
+                    pacStudent.transform.localRotation = Quaternion.Euler(0, 0, -90);
                 }
                 else if (CheckWall(pacStudent.transform.position+currentInput))
                 {
@@ -118,6 +119,8 @@ public class PacStudentController : MonoBehaviour
                     currentInput = Vector3.left;
                     activeTween = new Tween(pacStudent.transform, pacStudent.transform.position,
                         pacStudent.transform.position + currentInput, Time.time, duration);
+                    pacStudent.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    
                 }
                 else if (CheckWall(pacStudent.transform.position + currentInput))
                 {
@@ -134,6 +137,7 @@ public class PacStudentController : MonoBehaviour
                     currentInput = Vector3.down;
                     activeTween = new Tween(pacStudent.transform, pacStudent.transform.position,
                         pacStudent.transform.position + currentInput, Time.time, duration);
+                    pacStudent.transform.localRotation = Quaternion.Euler(0, 0, 90);
                 }
                 else if (CheckWall(pacStudent.transform.position + currentInput))
                 {
@@ -150,6 +154,7 @@ public class PacStudentController : MonoBehaviour
                     currentInput = Vector3.right;
                     activeTween = new Tween(pacStudent.transform, pacStudent.transform.position,
                         pacStudent.transform.position + currentInput, Time.time, duration);
+                    pacStudent.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 }
                 else if (CheckWall(pacStudent.transform.position + currentInput))
                 {
