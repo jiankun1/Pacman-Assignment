@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CherryContoller : MonoBehaviour
 {
@@ -8,9 +9,10 @@ public class CherryContoller : MonoBehaviour
     //private float duration = 0.0f;
 
     public GameObject cherry;
-
+    public GameObject pac;
     private Tween activeTween;
-
+    //distance between cherry and pacstudent
+    private float dist;
     private GameObject cherryObject = null;
 
     // Start is called before the first frame update
@@ -66,6 +68,26 @@ public class CherryContoller : MonoBehaviour
             }
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        if(cherryObject != null)
+        {
+            dist = Vector3.Distance(pac.transform.position, cherryObject.transform.position);
+            if (dist <= 1.0f)
+            {
+                Destroy(cherryObject);
+                cherryObject = null;
+                initialTime = Time.time;
+                activeTween = null;
+
+                //Add 100 point
+                var text = GameObject.Find("Score").GetComponent<Text>();
+                string[] word = text.text.Split('\n');
+                text.text = word[0] + '\n' + (int.Parse(word[1]) + 100).ToString();
+            }
+        }
     }
 
     public void AddTween(Transform targetObject, Vector3 startPos, Vector3 endPos, float duration)

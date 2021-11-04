@@ -1790,6 +1790,7 @@ GameObject:
   - component: {fileID: 1670488016}
   - component: {fileID: 1670488015}
   - component: {fileID: 1670488017}
+  - component: {fileID: 1670488018}
   m_Layer: 0
   m_Name: UI Manager
   m_TagString: Untagged
@@ -1849,6 +1850,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSound: {fileID: 879366685}
+  saver: {fileID: 1670488018}
+  scoreTimeText: {fileID: 307427945}
+--- !u!114 &1670488018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670488013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bba495febc85e646831e26998b169a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1672562231
 PrefabInstance:
   m_ObjectHideFlags: 0
