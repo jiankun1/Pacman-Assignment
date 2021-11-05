@@ -27,6 +27,7 @@ public class SaveGameManager : MonoBehaviour
         return "00:00:00";
     }
 
+    //save the score if it higher than previous high score
     public void SaveScoreandTime(int score, string time)
     {
         currentHighScore = PlayerPrefs.GetInt(scoreKey);

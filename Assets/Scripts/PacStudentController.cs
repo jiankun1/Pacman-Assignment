@@ -118,6 +118,7 @@ public class PacStudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //check the game state, running or finish
         if(currentGameStatus == gameStage.Start)
         {
             gameTimer.text = "Time:\n" + TimeSpan.FromSeconds(gameDuration).ToString("mm\\:ss\\:ff");
@@ -163,11 +164,10 @@ public class PacStudentController : MonoBehaviour
         }
         else if (currentGameStatus == gameStage.Finish)
         {
-
+            //save the high score and retrun to start scene
             saver.SaveScoreandTime(scorevalue, TimeSpan.FromSeconds(gameDuration).ToString("mm\\:ss\\:ff"));
             roundContorller.FinishGame();
         }
-        
         
     }
 
@@ -184,6 +184,7 @@ public class PacStudentController : MonoBehaviour
 
     void AddTween(float duration)
     {
+        //add to activeTween and save the currentInput, check if next grid is walkable
         if (activeTween == null)
         {
             //activeTween = new Tween(targetObject, startPos, endPos, Time.time, duration);
@@ -264,6 +265,8 @@ public class PacStudentController : MonoBehaviour
 
     void PacStudentTweening()
     {
+        //Tween pacstudent, in final step, check pellets, teleporters and the facing wall,
+        //then play sound and make pellet diappeared.
         if (activeTween != null)
         {
             if (!particleEffect.activeSelf)
@@ -341,6 +344,7 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
+    //Check if the position is walkable
     bool CheckWall(Vector3 position)
     {
         if(position.y >= 0)
@@ -367,6 +371,7 @@ public class PacStudentController : MonoBehaviour
         return true;
     }
 
+    //Use RaycastHit2D to detect wall, set the range to 0.5 which is just the distance from pacstudent to wall
     void DetectWallCollision()
     {
         RaycastHit2D hit2d = Physics2D.Raycast(pacStudent.transform.position, transform.TransformDirection(Vector2.left), 0.5f);
@@ -395,6 +400,8 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
+    //Use raycast2D to detect pellets, when just finish tweening, if the collision distance is 0, it must be pellets.
+    //Then make the tile to null and matrix to 0
     void DetectPelletCollision()
     {
         RaycastHit2D hit2d = Physics2D.Raycast(pacStudent.transform.position, transform.TransformDirection(Vector2.left), 0.5f);
@@ -422,6 +429,7 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
+    //Make matrix location to 0 and make tile to null
     void EatPellets(Vector2 pos)
     {
         if(GameObject.Find("Grid")!= null)
@@ -474,6 +482,7 @@ public class PacStudentController : MonoBehaviour
         
     }
 
+    //Add point to score in UI
     void AddPoints(int point)
     {
         scorevalue += point;
@@ -482,6 +491,7 @@ public class PacStudentController : MonoBehaviour
         text.text = word[0] + '\n' + (scorevalue).ToString();
     }
 
+    //detect ghost using raycast2D, pointing to the direction PacStudent facing
     void DetectGhostCollision()
     {
         RaycastHit2D hit2d = Physics2D.Raycast(pacStudent.transform.position, transform.TransformDirection(Vector2.left), 0.5f);
@@ -497,6 +507,7 @@ public class PacStudentController : MonoBehaviour
         {
             hit2d = Physics2D.Raycast(pacStudent.transform.position, transform.TransformDirection(Vector2.down), 0.5f);
         }
+        //if hit any normal-state ghost, set tween to null, perform particle effect, check lives
         if (hit2d)
         {
             //Hit ghost brown
@@ -600,6 +611,7 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
+    //check pacStudent lives, if less than 0, set game status to finish
     void CheckPacStuLives()
     {
         if (numLives > 0)
@@ -615,27 +627,28 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
+    //if eat power pellets, change annimator for ghost, set ghost state, and duration of scared state
     void EatPowerPills()
     {
-        
         if (!ghostTimer.activeSelf)
         {
             ghostTimer.SetActive(true);
 
         }
-
-        
+        //change animator
         brownGhost.GetComponent<Animator>().runtimeAnimatorController = scaredGhost;
         greenGhost.GetComponent<Animator>().runtimeAnimatorController = scaredGhost;
         purpleGhost.GetComponent<Animator>().runtimeAnimatorController = scaredGhost;
         redGhost.GetComponent<Animator>().runtimeAnimatorController = scaredGhost;
 
+        //change state
         brownState = ghostState.Scared;
         greenState = ghostState.Scared;
         purpleState = ghostState.Scared;
         redState = ghostState.Scared;
         generalState = ghostState.Scared;
-        //Debug.Log(generalState);
+        
+        //set timer
         ghostDuration = 10.0f;
         //ghost controller
         GhostController.brownStatus = GhostController.ghostStatus.Scared;
@@ -648,11 +661,11 @@ public class PacStudentController : MonoBehaviour
         GhostController.previousStepRed = Vector3.zero;
     }
 
+    //If ghost timer active, change animator in recovering state, set ghost state to normal if time is up
     void GhostTimerCountdown()
     {
         if (ghostTimer.activeSelf)
         {
-            
             
             if (ghostDuration <= 3.0f & ghostDuration > 0.0f)
             {
@@ -725,6 +738,7 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
+    //When hit the wall, play the effect
     IEnumerator WallCollisionEffect()
     {
         collideWallEffect.SetActive(true);
@@ -732,6 +746,9 @@ public class PacStudentController : MonoBehaviour
         collideWallEffect.SetActive(false);
     }
 
+    //When pacstudent die, remove the collider to prevent further raycast detection
+    //reset the ghost location
+    //add the collider back after 1 second
     IEnumerator PacStudentDeath()
     {
         pacStudent.GetComponent<Animator>().runtimeAnimatorController = pacStudentDeathController;
@@ -792,6 +809,7 @@ public class PacStudentController : MonoBehaviour
         ghostDeathSound.Play();
     }
 
+    //When the scared ghost is eaten, return to normal state after ghost back to spawn area
     IEnumerator GhostBackToNoraml()
     {
         

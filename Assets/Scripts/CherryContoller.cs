@@ -24,6 +24,7 @@ public class CherryContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //create cherry from random location above the camera 
         if((Time.time - initialTime) >= 10.0f)
         {
             float ranNum = Random.Range(-26.5f, 26.5f);

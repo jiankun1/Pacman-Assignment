@@ -23,6 +23,7 @@ public class RoundStartController : MonoBehaviour
         StartCoroutine(GameFinish());
     }
 
+    //set the countdown text for beginning of game
     IEnumerator StartCountDown()
     {
         while (countdownTime > 0)
@@ -40,6 +41,7 @@ public class RoundStartController : MonoBehaviour
         ghostController.SetActive(true);
     }
 
+    //when the game finish
     IEnumerator GameFinish()
     {
         countdownText.gameObject.SetActive(true);

@@ -158,12 +158,14 @@ public class GhostController : MonoBehaviour
         GhostTweening();
     }
 
+    //Noraml state ghost 1
     void Ghost1AddTween(GameObject target, float duration)
     {
+        //the direction away from pacstudent
         float distX = target.transform.position.x - pacStudent.transform.position.x;
         float distY = target.transform.position.y - pacStudent.transform.position.y;
 
-        //process y direction first
+        //process y direction first, convert to unit vecter
         if (distX != 0)
         {
             directionX = new Vector3(distX / Mathf.Abs(distX), 0.0f, 0.0f);
@@ -182,7 +184,7 @@ public class GhostController : MonoBehaviour
             directionY = new Vector3(0.0f, 1.0f, 0.0f);
         }
 
-        
+        //check the next pace is walkable
         if (CheckWall(target.transform.position+directionY) & CheckArea(target.transform.position + directionY) & previousStepBrown != (target.transform.position + directionY))
         {
             if(activeTweenBrown == null)
@@ -229,8 +231,10 @@ public class GhostController : MonoBehaviour
         
     }
 
+    //normal state ghost 2
     void Ghost2AddTween(GameObject target, float duration)
     {
+        //direction toward pacstudent
         float distX = pacStudent.transform.position.x - target.transform.position.x;
         float distY = pacStudent.transform.position.y - target.transform.position.y;
         //process y direction first
@@ -252,7 +256,7 @@ public class GhostController : MonoBehaviour
             directionY = new Vector3(0.0f, 1.0f, 0.0f);
         }
 
-
+        //check next pace is walkable
         if (CheckWall(target.transform.position + directionY) & CheckArea(target.transform.position + directionY) & previousStepGreen != (target.transform.position + directionY))
         {
             if (activeTweenGreen == null)
@@ -295,8 +299,10 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //normal state ghost 3
     void Ghost3AddTween(GameObject target, float duration)
     {
+        //randomise the direction
         ranNum = Random.Range(minNum, maxNum);
         if(ranNum == 0)
         {
@@ -317,7 +323,7 @@ public class GhostController : MonoBehaviour
             directionY = new Vector3(0.0f, -1.0f, 0.0f);
         }
         
-
+        //check if next pace is walkable
         if (CheckWall(target.transform.position + directionY) & CheckArea(target.transform.position + directionY) & previousStepPurple != (target.transform.position + directionY))
         {
             if (activeTweenPurple == null)
@@ -360,11 +366,14 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //normal state ghost 4
     void Ghost4AddTween(GameObject target, float duration)
     {
+        //set a unit vecter
         directionX = new Vector3(1.0f, 0.0f, 0.0f);
         directionY = new Vector3(0.0f, -1.0f, 0.0f);
 
+        //find if the path is nearby
         if(FindPath(target.transform.position + directionX))
         {
             pathFound = true;
@@ -512,6 +521,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //scaredstate ghost 2
     void Scared2AddTween(GameObject target, float duration)
     {
         float distX = target.transform.position.x - pacStudent.transform.position.x;
@@ -579,6 +589,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //scared state ghost 3
     void Scared3AddTween(GameObject target, float duration)
     {
         float distX = target.transform.position.x - pacStudent.transform.position.x;
@@ -646,6 +657,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //scared state ghost 4
     void Scared4AddTween(GameObject target, float duration)
     {
         float distX = target.transform.position.x - pacStudent.transform.position.x;
@@ -713,6 +725,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //death state ghost 1
     void Death1AddTween(GameObject target, float duration)
     {
         if (activeTweenBrown == null)
@@ -721,6 +734,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //death state ghost 2
     void Death2AddTween(GameObject target, float duration)
     {
         if (activeTweenGreen == null)
@@ -729,6 +743,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //death state ghost 3
     void Death3AddTween(GameObject target, float duration)
     {
         if (activeTweenPurple == null)
@@ -737,6 +752,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
+    //death state ghost 4
     void Death4AddTween(GameObject target, float duration)
     {
         if (activeTweenPurple == null)
@@ -745,7 +761,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
-
+    //tweening 
     void GhostTweening()
     {
         if(activeTweenBrown != null)
@@ -827,7 +843,7 @@ public class GhostController : MonoBehaviour
     }
 
 
-
+    //Check if the position is walkable
     bool CheckWall(Vector3 position)
     {
         //Debug.Log(position);
@@ -855,6 +871,7 @@ public class GhostController : MonoBehaviour
         return true;
     }
 
+    //let ghost 4 find the clock wise path
     bool FindPath(Vector3 position)
     {
         if (position.y >= 0)
@@ -881,6 +898,7 @@ public class GhostController : MonoBehaviour
         return false;
     }
 
+    //check if the position is in the spawn area
     bool CheckArea(Vector3 position)
     {
         if(position.x < 3.0f & position.x > -3.0f)
