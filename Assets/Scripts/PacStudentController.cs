@@ -16,6 +16,9 @@ public class PacStudentController : MonoBehaviour
     private string lastInput = string.Empty;
     private Vector3 currentInput;
 
+    //number of pellets
+    private int numPellets = 222;
+
     //store the wall segement 
     //public Tile[] tiles;
     private int [] tiles = { 1, 2, 3, 4, 7 };
@@ -101,6 +104,9 @@ public class PacStudentController : MonoBehaviour
     public SaveGameManager saver;
 
     public RoundStartController roundContorller;
+
+    //access ghost controller
+    //public GhostController ghostController;
 
 
     // Start is called before the first frame update
@@ -297,6 +303,8 @@ public class PacStudentController : MonoBehaviour
                 if(levelMap[15 - y, 14 - x] == 5 )
                 {
                     pacEatPellet.Play();
+                    numPellets--;
+                    //Debug.Log(numPellets);
                 }
                 else if (levelMap[15 - y, 14 - x] == 0)
                 {
@@ -304,6 +312,13 @@ public class PacStudentController : MonoBehaviour
                 }else if (levelMap[15 - y, 14 - x] == 6)
                 {
                     EatPowerPills();
+                    numPellets--;
+                }
+
+                //if all pellets are eaten
+                if(numPellets == 0)
+                {
+                    currentGameStatus = gameStage.Finish;
                 }
                 
                 if (particleEffect.activeSelf)
@@ -501,6 +516,9 @@ public class PacStudentController : MonoBehaviour
                     Destroy(brownGhost.GetComponent<BoxCollider2D>());
                     AddPoints(300);
                     generalState = ghostState.Death;
+                    //ghost controller
+                    GhostController.brownStatus = GhostController.ghostStatus.Death;
+                    GhostController.activeTweenBrown = null;
                     StartCoroutine(GhostBackToNoraml());
                 }
             }
@@ -523,6 +541,9 @@ public class PacStudentController : MonoBehaviour
                     Destroy(greenGhost.GetComponent<BoxCollider2D>());
                     AddPoints(300);
                     generalState = ghostState.Death;
+                    //ghost controller
+                    GhostController.greenStatus = GhostController.ghostStatus.Death;
+                    GhostController.activeTweenGreen = null;
                     StartCoroutine(GhostBackToNoraml());
                 }
             }
@@ -545,6 +566,9 @@ public class PacStudentController : MonoBehaviour
                     Destroy(purpleGhost.GetComponent<BoxCollider2D>());
                     AddPoints(300);
                     generalState = ghostState.Death;
+                    //ghost controller
+                    GhostController.purpleStatus = GhostController.ghostStatus.Death;
+                    GhostController.activeTweenPurple = null;
                     StartCoroutine(GhostBackToNoraml());
                 }
             }
@@ -567,6 +591,9 @@ public class PacStudentController : MonoBehaviour
                     Destroy(redGhost.GetComponent<BoxCollider2D>());
                     AddPoints(300);
                     generalState = ghostState.Death;
+                    //ghost controller
+                    GhostController.redStatus = GhostController.ghostStatus.Death;
+                    GhostController.activeTweenRed = null;
                     StartCoroutine(GhostBackToNoraml());
                 }
             }
@@ -610,6 +637,15 @@ public class PacStudentController : MonoBehaviour
         generalState = ghostState.Scared;
         //Debug.Log(generalState);
         ghostDuration = 10.0f;
+        //ghost controller
+        GhostController.brownStatus = GhostController.ghostStatus.Scared;
+        GhostController.greenStatus = GhostController.ghostStatus.Scared;
+        GhostController.purpleStatus = GhostController.ghostStatus.Scared;
+        GhostController.redStatus = GhostController.ghostStatus.Scared;
+        GhostController.previousStepBrown = Vector3.zero;
+        GhostController.previousStepGreen = Vector3.zero;
+        GhostController.previousStepPurple = Vector3.zero;
+        GhostController.previousStepRed = Vector3.zero;
     }
 
     void GhostTimerCountdown()
@@ -662,6 +698,15 @@ public class PacStudentController : MonoBehaviour
                 }
 
                 //generalState = ghostState.Normal;
+                //ghost controller
+                GhostController.brownStatus = GhostController.ghostStatus.Normal;
+                GhostController.greenStatus = GhostController.ghostStatus.Normal;
+                GhostController.purpleStatus = GhostController.ghostStatus.Normal;
+                GhostController.redStatus = GhostController.ghostStatus.Normal;
+                GhostController.previousStepBrown = Vector3.zero;
+                GhostController.previousStepGreen = Vector3.zero;
+                GhostController.previousStepPurple = Vector3.zero;
+                GhostController.previousStepRed = Vector3.zero;
             }
 
             ghostTimer.GetComponent<Text>().text = "Ghost time:\n" + TimeSpan.FromSeconds(ghostDuration).ToString("mm\\:ss\\:ff");
@@ -695,6 +740,15 @@ public class PacStudentController : MonoBehaviour
         Destroy(greenGhost.GetComponent<BoxCollider2D>());
         Destroy(purpleGhost.GetComponent<BoxCollider2D>());
         Destroy(redGhost.GetComponent<BoxCollider2D>());
+        //RESET ghost
+        GhostController.activeTweenBrown = null;
+        GhostController.activeTweenGreen = null;
+        GhostController.activeTweenPurple = null;
+        GhostController.activeTweenRed = null;
+        brownGhost.transform.position = new Vector3(-0.5f, 1.5f, 0.0f);
+        greenGhost.transform.position = new Vector3(0.5f, 1.5f, 0.0f);
+        purpleGhost.transform.position = new Vector3(-0.5f, -0.5f, 0.0f);
+        redGhost.transform.position = new Vector3(0.5f, -0.5f, 0.0f);
         yield return new WaitForSeconds(1.0f);
         pacStuDieEffect.SetActive(false);
         pacStudent.transform.position = new Vector3(-12.5f, 13.5f, 0.0f);
@@ -741,7 +795,7 @@ public class PacStudentController : MonoBehaviour
     IEnumerator GhostBackToNoraml()
     {
         
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(3.0f);
         
         if(brownState == ghostState.Death)
         {
@@ -749,7 +803,7 @@ public class PacStudentController : MonoBehaviour
             brownGhost.GetComponent<Animator>().runtimeAnimatorController = brownNormal;
             brownGhost.AddComponent<BoxCollider2D>();
             generalState = ghostState.Normal;
-            
+            GhostController.brownStatus = GhostController.ghostStatus.Normal;
         }
 
         if (greenState == ghostState.Death)
@@ -758,6 +812,7 @@ public class PacStudentController : MonoBehaviour
             greenGhost.GetComponent<Animator>().runtimeAnimatorController = greenNormal;
             greenGhost.AddComponent<BoxCollider2D>();
             generalState = ghostState.Normal;
+            GhostController.greenStatus = GhostController.ghostStatus.Normal;
         }
 
         if (purpleState == ghostState.Death)
@@ -766,6 +821,7 @@ public class PacStudentController : MonoBehaviour
             purpleGhost.GetComponent<Animator>().runtimeAnimatorController = purpleNormal;
             purpleGhost.AddComponent<BoxCollider2D>();
             generalState = ghostState.Normal;
+            GhostController.purpleStatus = GhostController.ghostStatus.Normal;
         }
 
         if (redState == ghostState.Death)
@@ -774,7 +830,9 @@ public class PacStudentController : MonoBehaviour
             redGhost.GetComponent<Animator>().runtimeAnimatorController = redNormal;
             redGhost.AddComponent<BoxCollider2D>();
             generalState = ghostState.Normal;
+            GhostController.redStatus = GhostController.ghostStatus.Normal;
         }
+        //yield return null;
     }
 
     

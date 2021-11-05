@@ -10,6 +10,7 @@ public class RoundStartController : MonoBehaviour
     private int countdownTime = 3;
     public Text countdownText;
     public GameObject gameControlObject;
+    public GameObject ghostController;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class RoundStartController : MonoBehaviour
 
         countdownText.gameObject.SetActive(false);
         gameControlObject.SetActive(true);
+        ghostController.SetActive(true);
     }
 
     IEnumerator GameFinish()
@@ -43,6 +45,7 @@ public class RoundStartController : MonoBehaviour
         countdownText.gameObject.SetActive(true);
         countdownText.text = "Game Over";
         gameControlObject.SetActive(false);
+        ghostController.SetActive(false);
         yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene(0);
     }
