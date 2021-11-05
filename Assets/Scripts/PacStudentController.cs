@@ -142,7 +142,7 @@ public class PacStudentController : MonoBehaviour
                 StoreLastInput("D");
             }
 
-            AddTween(0.8f);
+            AddTween(0.5f);
             PacStudentTweening();
 
             GhostTimerCountdown();

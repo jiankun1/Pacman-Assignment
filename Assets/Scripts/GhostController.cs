@@ -101,12 +101,12 @@ public class GhostController : MonoBehaviour
         if(brownStatus == ghostStatus.Normal)
         {
             
-            Ghost1AddTween(brownGhost, 0.8f);
+            Ghost1AddTween(brownGhost, 1.0f);
         }
         else if (brownStatus == ghostStatus.Scared)
         {
             
-            Ghost1AddTween(brownGhost, 0.8f);
+            Ghost1AddTween(brownGhost, 1.0f);
         }
         else
         {
@@ -116,10 +116,10 @@ public class GhostController : MonoBehaviour
         //ghost 2 (green) movement
         if(greenStatus == ghostStatus.Normal)
         {
-            Ghost2AddTween(greenGhost, 0.8f);
+            Ghost2AddTween(greenGhost, 1.0f);
         }else if (greenStatus == ghostStatus.Scared)
         {
-            Scared2AddTween(greenGhost, 0.8f);
+            Scared2AddTween(greenGhost, 1.0f);
         }
         else
         {
@@ -129,11 +129,11 @@ public class GhostController : MonoBehaviour
         //ghost 3 (purple) movement
         if(purpleStatus == ghostStatus.Normal)
         {
-            Ghost3AddTween(purpleGhost, 0.8f);
+            Ghost3AddTween(purpleGhost, 1.0f);
         }
         else if (purpleStatus == ghostStatus.Scared)
         {
-            Scared3AddTween(purpleGhost, 0.8f);
+            Scared3AddTween(purpleGhost, 1.0f);
         }
         else
         {
@@ -143,11 +143,11 @@ public class GhostController : MonoBehaviour
         //ghost 4 (red) movement
         if (redStatus == ghostStatus.Normal)
         {
-            Ghost4AddTween(redGhost, 0.8f);
+            Ghost4AddTween(redGhost, 1.0f);
         }
         else if (redStatus == ghostStatus.Scared)
         {
-            Scared4AddTween(redGhost, 0.8f);
+            Scared4AddTween(redGhost, 1.0f);
         }
         else
         {
