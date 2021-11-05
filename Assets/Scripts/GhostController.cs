@@ -846,28 +846,32 @@ public class GhostController : MonoBehaviour
     //Check if the position is walkable
     bool CheckWall(Vector3 position)
     {
-        //Debug.Log(position);
-        if (position.y >= 0)
+        if(position.x <= 13.0f & position.x >= -13.0f)
         {
-            int x = Mathf.FloorToInt(Mathf.Abs(position.x)) + 1;
-            int y = Mathf.FloorToInt(Mathf.Abs(position.y)) + 1;
-
-            if (tiles.Contains(levelMap[15 - y, 14 - x]))
+            //Debug.Log(position);
+            if (position.y >= 0)
             {
-                return false;
-            }
-            //return true;
-        }
-        else
-        {
-            int x = Mathf.FloorToInt(Mathf.Abs(position.x)) + 1;
-            int y = Mathf.FloorToInt(Mathf.Abs(position.y - 1)) + 1;
+                int x = Mathf.FloorToInt(Mathf.Abs(position.x)) + 1;
+                int y = Mathf.FloorToInt(Mathf.Abs(position.y)) + 1;
 
-            if (tiles.Contains(levelMap[15 - y, 14 - x]))
+                if (tiles.Contains(levelMap[15 - y, 14 - x]))
+                {
+                    return false;
+                }
+                //return true;
+            }
+            else
             {
-                return false;
+                int x = Mathf.FloorToInt(Mathf.Abs(position.x)) + 1;
+                int y = Mathf.FloorToInt(Mathf.Abs(position.y - 1)) + 1;
+
+                if (tiles.Contains(levelMap[15 - y, 14 - x]))
+                {
+                    return false;
+                }
             }
         }
+        
         return true;
     }
 
@@ -907,6 +911,11 @@ public class GhostController : MonoBehaviour
             {
                 return false;
             }
+        }
+
+        if(position.x > 13.0f | position.x < -13.0f)
+        {
+            return false;
         }
 
         return true;

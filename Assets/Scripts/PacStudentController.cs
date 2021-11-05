@@ -105,8 +105,8 @@ public class PacStudentController : MonoBehaviour
 
     public RoundStartController roundContorller;
 
-    //access ghost controller
-    //public GhostController ghostController;
+    //power pills
+    int numPowerPills = 4;
 
 
     // Start is called before the first frame update
@@ -303,7 +303,8 @@ public class PacStudentController : MonoBehaviour
                 activeTween.Target.position = activeTween.EndPos;
                 activeTween = null;
                 
-                if(levelMap[15 - y, 14 - x] == 5 )
+                
+                if (levelMap[15 - y, 14 - x] == 5 )
                 {
                     pacEatPellet.Play();
                     numPellets--;
@@ -336,10 +337,12 @@ public class PacStudentController : MonoBehaviour
                 {
                     pacStudent.transform.position = new Vector3(-12.5f, 0.5f, 0.0f);
                 }
+
+
+                //DetectPelletCollision();
+                //DetectWallCollision();
+                StartCoroutine(DetectPelletsandWall());
                 
-                
-                DetectPelletCollision();
-                DetectWallCollision();
             }
         }
     }
@@ -392,7 +395,7 @@ public class PacStudentController : MonoBehaviour
             //Debug.Log("2d cast: " + hit2d.collider.name);
             if (hit2d.distance == 0.5f)
             {
-                Debug.Log("Hit wall");
+                //Debug.Log("Hit wall");
                 //Debug.Log("hitpoint: " + hit2d.point);
                 StartCoroutine(WallCollisionEffect());
                 hitWallSound.Play();
@@ -443,17 +446,39 @@ public class PacStudentController : MonoBehaviour
                 {
                     GameObject topLeft = GameObject.Find("Tilemap_TopLeft");
                     //Debug.Log("eated");
-                    topLeft.GetComponent<Tilemap>().SetTile(new Vector3Int(-x-1, y, 0), null);
-                    levelMap[14 - y, 13 - x] = 0;
-                    AddPoints(10);
+                    topLeft.GetComponent<Tilemap>().SetTile(new Vector3Int(-x - 1, y, 0), null);
+                    if (levelMap[14 - y, 13 - x] == 5)
+                    {
+                        levelMap[14 - y, 13 - x] = 0;
+                        AddPoints(10);
+                    }else if (levelMap[14 - y, 13 - x] == 6)
+                    {
+                        numPowerPills--;
+                        if(numPowerPills == 0)
+                        {
+                            levelMap[14 - y, 13 - x] = 0;
+                        }
+                    }
+                    
                 }
                 //pos.x >0
                 else
                 {
                     GameObject topRight = GameObject.Find("Tilemap_TopRight");
                     topRight.GetComponent<Tilemap>().SetTile(new Vector3Int(-x - 1, y, 0), null);
-                    levelMap[14 - y, 13 - x] = 0;
-                    AddPoints(10);
+                    if (levelMap[14 - y, 13 - x] == 5)
+                    {
+                        levelMap[14 - y, 13 - x] = 0;
+                        AddPoints(10);
+                    }
+                    else if (levelMap[14 - y, 13 - x] == 6)
+                    {
+                        numPowerPills--;
+                        if (numPowerPills == 0)
+                        {
+                            levelMap[14 - y, 13 - x] = 0;
+                        }
+                    }
                 }
             }
             //pos.y < 0
@@ -465,16 +490,38 @@ public class PacStudentController : MonoBehaviour
                 {
                     GameObject botLeft = GameObject.Find("Tilemap_BottomLeft");
                     botLeft.GetComponent<Tilemap>().SetTile(new Vector3Int(-x - 1, y, 0), null);
-                    levelMap[14 - y, 13 - x] = 0;
-                    AddPoints(10);
+                    if (levelMap[14 - y, 13 - x] == 5)
+                    {
+                        levelMap[14 - y, 13 - x] = 0;
+                        AddPoints(10);
+                    }
+                    else if (levelMap[14 - y, 13 - x] == 6)
+                    {
+                        numPowerPills--;
+                        if (numPowerPills == 0)
+                        {
+                            levelMap[14 - y, 13 - x] = 0;
+                        }
+                    }
                 }
                 //pos.x > 0
                 else
                 {
                     GameObject botRight = GameObject.Find("Tilemap_BottomRight");
                     botRight.GetComponent<Tilemap>().SetTile(new Vector3Int(-x - 1, y, 0), null);
-                    levelMap[14 - y, 13 - x] = 0;
-                    AddPoints(10);
+                    if (levelMap[14 - y, 13 - x] == 5)
+                    {
+                        levelMap[14 - y, 13 - x] = 0;
+                        AddPoints(10);
+                    }
+                    else if (levelMap[14 - y, 13 - x] == 6)
+                    {
+                        numPowerPills--;
+                        if (numPowerPills == 0)
+                        {
+                            levelMap[14 - y, 13 - x] = 0;
+                        }
+                    }
                 }
             }
             
@@ -651,14 +698,15 @@ public class PacStudentController : MonoBehaviour
         //set timer
         ghostDuration = 10.0f;
         //ghost controller
-        GhostController.brownStatus = GhostController.ghostStatus.Scared;
-        GhostController.greenStatus = GhostController.ghostStatus.Scared;
-        GhostController.purpleStatus = GhostController.ghostStatus.Scared;
-        GhostController.redStatus = GhostController.ghostStatus.Scared;
         GhostController.previousStepBrown = Vector3.zero;
         GhostController.previousStepGreen = Vector3.zero;
         GhostController.previousStepPurple = Vector3.zero;
         GhostController.previousStepRed = Vector3.zero;
+        GhostController.brownStatus = GhostController.ghostStatus.Scared;
+        GhostController.greenStatus = GhostController.ghostStatus.Scared;
+        GhostController.purpleStatus = GhostController.ghostStatus.Scared;
+        GhostController.redStatus = GhostController.ghostStatus.Scared;
+        
     }
 
     //If ghost timer active, change animator in recovering state, set ghost state to normal if time is up
@@ -853,5 +901,10 @@ public class PacStudentController : MonoBehaviour
         //yield return null;
     }
 
-    
+    IEnumerator DetectPelletsandWall()
+    {
+        DetectPelletCollision();
+        yield return new WaitForSeconds(0.3f);
+        DetectWallCollision();
+    }
 }
